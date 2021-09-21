@@ -9,7 +9,9 @@ class EmailAddress {
 
   factory EmailAddress(String input) {
     assert(input != null);
-    return EmailAddress._(validateEmailAddress(input));
+    return EmailAddress._(
+      validateEmailAddress(input),
+    );
   }
 
   const EmailAddress._(this.value);
@@ -34,7 +36,7 @@ String validateEmailAddress(String input) {
   if (RegExp(emailRegex).hasMatch(input)) {
     return input;
   } else {
-    throw InvalidEmailException(failedValue: input);
+    // throw InvalidEmailException(failedValue: input);
   }
 //!TODO Use better Regex
 }
@@ -44,10 +46,7 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
   const factory ValueFailure.invalidEmail({
     required String failedValue,
   }) = InvalidEmail<T>;
-}
-
-class InvalidEmailException implements Exception {
-  final String failedValue;
-
-  InvalidEmailException({required this.failedValue});
+  const factory ValueFailure.shortPassword({
+    required String failedValue,
+  }) = ShortPassword<T>;
 }
