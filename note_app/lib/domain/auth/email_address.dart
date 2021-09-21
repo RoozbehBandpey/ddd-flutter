@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 class EmailAddress {
   final String value;
@@ -33,6 +35,13 @@ String validateEmailAddress(String input) {
     throw InvalidEmailException(failedValue: input);
   }
 //!TODO Use better Regex
+}
+
+@freezed
+abstract class ValueFailure<T> with _$ValueFailure<T> {
+  const factory ValueFailure.invalidEmail({
+    required String failedValue,
+  }) = InvalidEmail<T>;
 }
 
 class InvalidEmailException implements Exception {
