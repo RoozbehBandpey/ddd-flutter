@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
-import 'package:note_app/domain/auth/email_address.dart';
+import 'package:note_app/domain/auth/value_objects.dart';
 
 @immutable
 abstract class ValueObject<T> {
