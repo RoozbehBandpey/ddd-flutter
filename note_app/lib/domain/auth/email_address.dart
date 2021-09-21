@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -5,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'email_address.freezed.dart';
 
 class EmailAddress {
-  final String value;
+  final Either<ValueFailure<String>, String> value;
 
   factory EmailAddress(String input) {
     assert(input != null);
@@ -30,13 +31,13 @@ class EmailAddress {
   String toString() => 'EmailAddress(value: $value)';
 }
 
-String validateEmailAddress(String input) {
+Either<ValueFailure<String>, String>  validateEmailAddress(String input) {
   const emailRegex =
       r"""^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+""";
   if (RegExp(emailRegex).hasMatch(input)) {
-    return input;
+    return right(input);
   } else {
-    // throw InvalidEmailException(failedValue: input);
+    return left(ValueFailure.invalidEmail(failedValue: input));
   }
 //!TODO Use better Regex
 }
